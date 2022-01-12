@@ -988,6 +988,7 @@ def main():
             args.n_gpu = 1
     else:
         device = xm.xla_device()
+        args.n_gpu = 1
     args.device = device
 
     # Setup logging
