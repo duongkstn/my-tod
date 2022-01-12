@@ -990,7 +990,7 @@ def main():
         device = xm.xla_device()
         args.n_gpu = 1
     args.device = device
-
+    print('args.device = ', args.device)
     # Setup logging
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
@@ -1036,11 +1036,10 @@ def main():
         config=config,
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
-    model.to(args.device)
-
     # Add new tokens to the vocabulary and embeddings of our model
     tokenizer.add_tokens([args.sys_token, args.usr_token])
     model.resize_token_embeddings(len(tokenizer))
+    model.to(args.device)
 
     if args.local_rank == 0:
         torch.distributed.barrier()  # End of barrier to make sure only the first process in distributed training download model & vocab
