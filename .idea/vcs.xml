@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/TODBERT_dialog_datasets/dialog_datasets/Taskmaster" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/TODBERT_dialog_datasets/dialog_datasets/dstc8-schema-guided-dialogue" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/TODBERT_dialog_datasets/dialog_datasets/e2e_dialog_challenge" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/TODBERT_dialog_datasets/dialog_datasets/neural-belief-tracker" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/TODBERT_dialog_datasets/dialog_datasets/oos-intent" vcs="Git" />
+  </component>
+</project>
