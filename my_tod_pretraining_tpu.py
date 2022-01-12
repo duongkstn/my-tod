@@ -532,7 +532,7 @@ def train(args, trn_loader, dev_loader, model, tokenizer, cand_uttr_sys_dict, ot
                     scaled_loss.backward()
             else:
                 loss.backward()
-                xm.optimizer_step(optimizer,barrier=True)
+
 
             # Print loss
             epoch_iterator.set_description(
@@ -547,7 +547,8 @@ def train(args, trn_loader, dev_loader, model, tokenizer, cand_uttr_sys_dict, ot
                     torch.nn.utils.clip_grad_norm_(amp.master_params(optimizer), args.max_grad_norm)
                 else:
                     torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
-                optimizer.step()
+                # optimizer.step()
+                xm.optimizer_step(optimizer, barrier=True)
                 scheduler.step()  # Update learning rate schedule
                 model.zero_grad()
                 global_step += 1
@@ -991,6 +992,7 @@ def main():
         args.n_gpu = 1
     args.device = device
     print('args.device = ', args.device)
+    print('xm.xrt_world_size() = ', xm.xrt_world_size())
     # Setup logging
     logging.basicConfig(
         format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
@@ -1040,6 +1042,7 @@ def main():
     tokenizer.add_tokens([args.sys_token, args.usr_token])
     model.resize_token_embeddings(len(tokenizer))
     model.to(args.device)
+    print('model = ', model)
 
     if args.local_rank == 0:
         torch.distributed.barrier()  # End of barrier to make sure only the first process in distributed training download model & vocab
