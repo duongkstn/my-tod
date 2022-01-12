@@ -1,3 +1,4 @@
+print('training by tpu')
 import argparse
 import glob
 import logging
